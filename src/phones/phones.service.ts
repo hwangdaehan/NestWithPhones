@@ -24,4 +24,46 @@ export class PhonesService {
         let resultData = phoneList.filter(phone => phone.version === ver)
         return resultData;
     }
+
+    addPhone(version:number,name:string): object {
+        
+        var obj = {
+            id : phoneList.length+1,
+            version : version,
+            name : name 
+        }
+
+        phoneList.push(obj);
+
+        return obj;
+    }
+
+    updatePhone(id:number,version:number,name:string): object {
+        
+        
+        let resultData = phoneList.find(phone => phone.id === id)
+        
+            if(!resultData){
+                let obj = {
+                    code : 99,
+                    msg : "no data",
+                }
+                return obj;
+            }else{
+                resultData.version = version;
+                resultData.name = name;
+                return resultData;
+            }            
+    }
+
+
+    deletePhone(id:number):string{
+        let resultData = phoneList.find(phone => phone.id === id)
+
+        const idx = phoneList.indexOf(resultData);
+
+        phoneList.splice(idx,1);
+
+        return String(resultData.id + " 삭제 완료");
+    }
 }
